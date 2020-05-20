@@ -13,6 +13,7 @@ declare(strict_types = 1);
 namespace App\Task;
 
 use App\Component\Server;
+use App\Constants\Atomic;
 use App\Constants\MemoryTable;
 use App\Constants\WsMessage;
 use Hyperf\Memory\AtomicManager;
@@ -40,7 +41,7 @@ class UserTask
      */
     public function onlineNumber()
     {
-        $atomic = AtomicManager::get('atomic');
+        $atomic = AtomicManager::get(Atomic::NAME);
 
         $userToFdTable = TableManager::get(MemoryTable::USER_TO_FD);
 

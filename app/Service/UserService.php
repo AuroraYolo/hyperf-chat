@@ -14,9 +14,13 @@ namespace App\Service;
 
 use App\Constants\ErrorCode;
 use App\Exception\ApiException;
+use App\Model\FriendRelation;
 use App\Model\User;
 use App\Model\UserApplication;
 use App\Model\UserLoginLog;
+use App\Task\UserTask;
+use Hyperf\Memory\TableManager;
+use Hyperf\Utils\ApplicationContext;
 use Nette\Utils\Json;
 use function App\Helper\getClientIp;
 
@@ -124,6 +128,31 @@ class UserService
 
     public static function setUserStatus(int $userId, int $status = User::STATUS_ONLINE)
     {
+        self::changeUserInfoById($userId, [
+            'status' => $status
+        ]);
+        $friendIds = FriendService::getFriendGroupByUserId($userId);
+        $friendIds = array_column($friendIds, 'friend_id');
 
+        $onlineFds = [];
+        foreach ($friendIds as $friendId) {
+            $fd = TableManager::get(MemoryTable::USER_TO_FD)->get($friendId, 'fd');
+            $fd && array_push($onlineFds, $fd);
+        }
+
+        $result = [
+            'user_id' => $userId,
+            'status'  => FriendRelation::STATUS_TEXT[$status]
+        ];
+
+        $task = ApplicationContext::getContainer()->get(UserTask::class);
+        $task->setUserStatus($onlineFds, $result);
+
+        return $result;
+    }
+
+    public static function changeUserInfoById(int $userId, array $data)
+    {
+        return User::query()->whereNull('deleted_at')->where(['id' => $userId])->update($data);
     }
 }

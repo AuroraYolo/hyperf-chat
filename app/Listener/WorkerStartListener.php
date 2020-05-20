@@ -12,6 +12,7 @@ declare(strict_types = 1);
 
 namespace App\Listener;
 
+use App\Constants\Atomic;
 use Hyperf\Event\Contract\ListenerInterface;
 use Hyperf\Framework\Event\AfterWorkerStart;
 use Hyperf\Memory\AtomicManager;
@@ -36,6 +37,6 @@ class WorkerStartListener implements ListenerInterface
             }
             TableManager::get($key)->create();
         }
-        AtomicManager::initialize('atomic');
+        AtomicManager::initialize(Atomic::NAME);
     }
 }
