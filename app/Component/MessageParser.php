@@ -25,4 +25,14 @@ class MessageParser
     {
         return Json::decode($data, true);
     }
+
+    /**
+     * @param array $data
+     *
+     * @return string
+     */
+    public static function encode(array $data) : string
+    {
+        return Json::encode($data);
+    }
 }

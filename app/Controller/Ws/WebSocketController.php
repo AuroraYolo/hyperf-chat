@@ -22,12 +22,13 @@ use App\Task\UserTask;
 use Hyperf\Contract\OnCloseInterface;
 use Hyperf\Contract\OnMessageInterface;
 use Hyperf\Contract\OnOpenInterface;
+use Hyperf\Di\Annotation\Inject;
 use Hyperf\HttpServer\Router\Dispatched;
 use Hyperf\HttpServer\Router\DispatcherFactory;
 use Hyperf\Memory\AtomicManager;
 use Hyperf\Memory\TableManager;
-use Hyperf\Utils\ApplicationContext;
 use Hyperf\Utils\Context;
+use Hyperf\WebSocketServer\Sender;
 use Swoole\Http\Request;
 use Swoole\Server;
 use Swoole\Websocket\Frame;
@@ -35,10 +36,23 @@ use Swoole\WebSocket\Server as WebSocketServer;
 
 class WebSocketController extends AbstractController implements OnMessageInterface, OnOpenInterface, OnCloseInterface
 {
+
+    /**
+     * @Inject()
+     * @var Sender
+     */
+    private $sender;
+
+    /**
+     * @param \Swoole\WebSocket\Server $server
+     * @param \Swoole\Websocket\Frame  $frame
+     */
+
     public function onMessage(WebSocketServer $server, Frame $frame) : void
     {
         //TODO 处理消息
-        $message    = MessageParser::decode($frame->data);
+        $message = MessageParser::decode($frame->data);
+        Context::set('message', $message);
         $dispatcher = $this->container
             ->get(DispatcherFactory::class)
             ->getDispatcher('ws');
@@ -49,6 +63,16 @@ class WebSocketController extends AbstractController implements OnMessageInterfa
         ]);
         if ($dispatched->isFound()) {
             //TODO 路由处理
+            $result  = call_user_func([
+                make($dispatched->handler->callback[0]),
+                $dispatched->handler->callback[1],
+            ]);
+            $receive = [
+                'cmd'  => $message['cmd'],
+                'data' => $result,
+                'ext'  => []
+            ];
+            $this->sender->push($frame->fd, MessageParser::encode($receive));
         }
     }
 

@@ -31,4 +31,9 @@ class UserController extends AbstractController
     {
         return WEBSOCKET_OPCODE_PONG;
     }
+
+    public function getUnreadApplicationCount()
+    {
+
+    }
 }
