@@ -46,6 +46,7 @@ class FriendController extends AbstractController
 
         $userInfo = UserService::findUserInfoById($data['from_user_id']);
         $fd       = TableManager::get(MemoryTable::USER_TO_FD)->get((string)$data['to_id'], 'fd') ?? '';
+
         $this->container->get(FriendTask::class)->sendMessage(
             $fd,
             $userInfo->username,

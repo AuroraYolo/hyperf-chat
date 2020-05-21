@@ -119,8 +119,9 @@ class WebSocketController extends AbstractController implements OnMessageInterfa
          */
         $user        = WsContext::get('user');
         $checkOnline = TableManager::get(MemoryTable::USER_TO_FD)->get((string)$user->id, 'fd');
+
         if ($checkOnline) {
-            \App\Component\Server::disconnect($request->fd, 0, '你的帐号在别的地方登录!');
+            \App\Component\Server::disconnect($checkOnline, 0, '你的帐号在别的地方登录!');
         }
 
         TableManager::get(MemoryTable::FD_TO_USER)->set((string)$request->fd, ['userId' => $user->id]);

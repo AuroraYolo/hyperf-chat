@@ -22,13 +22,10 @@ use Hyperf\Utils\Context;
 use Hyperf\WebSocketServer\Context as WsContext;
 use Hyperf\WebSocketServer\Security;
 use Phper666\JWTAuth\JWT;
-use Psr\Http\Message\RequestInterface;
 use Psr\Http\Message\ResponseInterface;
 use Psr\Http\Message\ServerRequestInterface;
 use Psr\Http\Server\MiddlewareInterface;
 use Psr\Http\Server\RequestHandlerInterface;
-use Swoole\Http\Request as SwooleRequest;
-use Swoole\Http\Response as SwooleResponse;
 
 class AuthMiddleware implements MiddlewareInterface
 {
