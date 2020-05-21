@@ -13,6 +13,7 @@ declare(strict_types = 1);
 namespace App\Controller\Ws;
 
 use App\Component\MessageParser;
+use App\Component\WsProtocol;
 use App\Constants\Atomic;
 use App\Constants\MemoryTable;
 use App\Controller\AbstractController;
@@ -28,6 +29,7 @@ use Hyperf\HttpServer\Router\DispatcherFactory;
 use Hyperf\Memory\AtomicManager;
 use Hyperf\Memory\TableManager;
 use Hyperf\Utils\Context;
+use Hyperf\WebSocketServer\Context as WsContext;
 use Hyperf\WebSocketServer\Sender;
 use Swoole\Http\Request;
 use Swoole\Server;
@@ -50,9 +52,14 @@ class WebSocketController extends AbstractController implements OnMessageInterfa
 
     public function onMessage(WebSocketServer $server, Frame $frame) : void
     {
-        //TODO 处理消息
+        //处理消息
         $message = MessageParser::decode($frame->data);
-        Context::set('message', $message);
+        Context::set('request', new WsProtocol(
+            $message['data'],
+            $message['ext'],
+            $frame->fd,
+            $server->getClientInfo($frame->fd)['last_time'] ?? 0
+        ));
         $dispatcher = $this->container
             ->get(DispatcherFactory::class)
             ->getDispatcher('ws');
@@ -62,17 +69,19 @@ class WebSocketController extends AbstractController implements OnMessageInterfa
             $dispatcher->dispatch('GET', sprintf('/%s/%s', $controller, $method))
         ]);
         if ($dispatched->isFound()) {
-            //TODO 路由处理
-            $result  = call_user_func([
+            //路由处理
+            $result = call_user_func([
                 make($dispatched->handler->callback[0]),
                 $dispatched->handler->callback[1],
             ]);
-            $receive = [
-                'cmd'  => $message['cmd'],
-                'data' => $result,
-                'ext'  => []
-            ];
-            $this->sender->push($frame->fd, MessageParser::encode($receive));
+            if ($result !== NULL) {
+                $receive = [
+                    'cmd'  => $message['cmd'],
+                    'data' => $result,
+                    'ext'  => []
+                ];
+                $this->sender->push($frame->fd, MessageParser::encode($receive));
+            }
         }
     }
 
@@ -108,7 +117,7 @@ class WebSocketController extends AbstractController implements OnMessageInterfa
         /**
          * @var \App\Model\User $user
          */
-        $user        = Context::get('user');
+        $user        = WsContext::get('user');
         $checkOnline = TableManager::get(MemoryTable::USER_TO_FD)->get((string)$user->id, 'fd');
         if ($checkOnline) {
             \App\Component\Server::disconnect($request->fd, 0, '你的帐号在别的地方登录!');

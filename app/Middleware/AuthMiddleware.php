@@ -65,7 +65,7 @@ class AuthMiddleware implements MiddlewareInterface
         /**
          * @var \Hyperf\HttpMessage\Server\Request $request
          */
-        $request   = WsContext::get(ServerRequestInterface::class);
+        $request   = Context::get(ServerRequestInterface::class);
         $container = ApplicationContext::getContainer();
         $key       = $request->getHeaderLine(Security::SEC_WEBSOCKET_KEY);
         $token     = $request->getHeaderLine(Security::SEC_WEBSOCKET_PROTOCOL);
@@ -80,7 +80,7 @@ class AuthMiddleware implements MiddlewareInterface
         if ($isValidToken) {
             $jwtData = $this->jwt->getParserData($token);
             $user    = User::query()->where(['id' => $jwtData['uid']])->first();
-            Context::set('user', $user);
+            WsContext::set('user', $user);
             $uri        = $request->getUri();
             $dispatcher = $container
                 ->get(DispatcherFactory::class)

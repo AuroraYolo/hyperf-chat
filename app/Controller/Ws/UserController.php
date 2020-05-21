@@ -12,9 +12,15 @@ declare(strict_types = 1);
 
 namespace App\Controller\Ws;
 
+use App\Constants\MemoryTable;
 use App\Controller\AbstractController;
+use App\Service\UserService;
+use App\Task\UserTask;
 use Hyperf\HttpServer\Annotation\Controller;
 use Hyperf\HttpServer\Annotation\RequestMapping;
+use Hyperf\Memory\TableManager;
+use Hyperf\Utils\Context;
+use App\Component\WsProtocol;
 
 /**
  * Class UserController
@@ -32,8 +38,18 @@ class UserController extends AbstractController
         return WEBSOCKET_OPCODE_PONG;
     }
 
+    /**
+     * @RequestMapping(path="getUnreadApplicationCount",methods="GET")
+     */
     public function getUnreadApplicationCount()
     {
+        /**
+         * @var WsProtocol $protocol
+         */
+        $protocol = Context::get('request');
+        $userId   = TableManager::get(MemoryTable::FD_TO_USER)->get((string)$protocol->getFd(), 'userId') ?? '';
+        $count    = UserService::getUnreadApplicationCount($userId);
 
+        $this->container->get(UserTask::class)->unReadApplicationCount($protocol->getFd(), $count);
     }
 }

@@ -55,6 +55,6 @@ class UserApplication extends Model
     const APPLICATION_RECEIVER_USER = 'receiver';
     const APPLICATION_SYSTEM = 'system';
 
-    const APPLICATION_TYPE_FRIEND = 1;
-    const APPLICATION_TYPE_GROUP = 2;
+    const APPLICATION_TYPE_FRIEND = 'friend';
+    const APPLICATION_TYPE_GROUP = 'group';
 }

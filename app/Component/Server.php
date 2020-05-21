@@ -24,7 +24,7 @@ class Server
         /**
          * @var \Swoole\WebSocket\Server $server
          */
-        $server = ApplicationContext::getContainer()->get(Server::class);
+        $server = ApplicationContext::getContainer()->get(\Swoole\Server::class);
         foreach ($fds as $fd) {
             if ($server->isEstablished($fd)) {
                 $server->push($fd, $data);

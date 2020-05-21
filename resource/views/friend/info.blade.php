@@ -131,27 +131,28 @@
     }
   </style>
 </head>
-<?= $this->include('chat/header', ['title' => '好友资料']) ?>
+@include('chat/header', ['title' => '好友资料'])
 <body>
 <div class="layui-form" id="LAY_view">
 
 </div>
+
 <script type="text/html" title="资料模版" id="LAY_tpl" style="display:none;">
   <div class="layui-form-item" style="padding-top: 15px;">
     <div class="layim-msgbox">
       <li>
         <a href="javascript:void(0);" target="_blank">
-          <img src="{{ d.avatar }}"
+          <img src="@{{ d.avatar }}"
                class="layui-circle layim-msgbox-avatar">
         </a>
         <p class="layim-msgbox-user">
-          <span style="letter-spacing: 5px;">编 号</span> {{ d.userId }}
+          <span style="letter-spacing: 5px;">编 号</span> @{{ d.userId }}
         </p>
         <p class="layim-msgbox-user">
-          <span style="letter-spacing: 5px;">昵 称</span> {{ d.username }}
+          <span style="letter-spacing: 5px;">昵 称</span> @{{ d.username }}
         </p>
-        <button class="layui-btn layui-btn layui-btn-primary chat" data-name="{{ d.username }}"
-                data-avatar="{{ d.avatar }}" data-type="chat" data-uid="{{d.userId}}">发送消息
+        <button class="layui-btn layui-btn layui-btn-primary chat" data-name="@{{ d.username }}"
+                data-avatar="@{{ d.avatar }}" data-type="chat" data-uid="@{{d.userId}}">发送消息
         </button>
       </li>
     </div>
@@ -161,18 +162,18 @@
     <div class="layui-col-xs12 pt10">
       <label class="label">注册时间</label>
       <div class="block">
-        <div class="label_key">{{d.createdAt}}</div>
+        <div class="label_key">@{{d.createdAt}}</div>
       </div>
     </div>
     <label class="label">邮&nbsp;&nbsp;箱</label>
     <div class="block">
-      <div class="label_key">{{d.email}}</div>
+      <div class="label_key">@{{d.email}}</div>
     </div>
   </div>
   <div class="layui-col-xs12 pt10">
     <label class="label">签&nbsp;&nbsp;名</label>
     <div class="block">
-      <div class="label_key">{{d.sign}}</div>
+      <div class="label_key">@{{d.sign}}</div>
     </div>
   </div>
 </script>

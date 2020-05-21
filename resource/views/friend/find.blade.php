@@ -82,7 +82,7 @@
                 <div class="layui-row ">
                  @{{#  layui.each(d.data, function(index, item){ }}
 					<div class="layui-col-xs3 layui-find-list">
-						<li layim-event="add" data-index="0" data-uid="@{{ item.userId }}"
+						<li layim-event="add" data-index="0" data-uid="@{{ item.id }}"
                             data-name="@{{item.username}}">
 							<img src="@{{item.avatar}}">
 							<span>@{{item.username}}(@{{item.email}})</span>

@@ -68,11 +68,12 @@
     }
   </style>
 </head>
-<?= $this->include('chat/header', ['title' => '消息盒子']) ?>
+@include('chat/header', ['title' => '消息盒子'])
 <body>
 
 <ul class="layim-msgbox" id="LAY_view"></ul>
 <textarea title="消息模版" id="LAY_tpl" style="display:none;">
+@verbatim
             {{# layui.each(d.data, function(index, item){
                 if(item.application_role == 'create'){ }}
                         <li data-uid="{{ item.receiver_id }}">
@@ -246,6 +247,7 @@
 
                 {{# }
             }); }}
+    @endverbatim
         </textarea>
 
 <script type="module">

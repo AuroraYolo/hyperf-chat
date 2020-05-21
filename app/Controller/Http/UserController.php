@@ -91,7 +91,7 @@ class UserController extends AbstractController
             ];
             $token    = $this->auth->setScene('default')->getToken($auth);
             return $this->response
-                ->withCookie(new Cookie('IM_TOKEN', $token, time() + $this->auth->getTTL())
+                ->withCookie(new Cookie('IM_TOKEN', $token, time() + $this->auth->getTTL(), '/', '', false, false,)
                 )->json([
                     'data' => $user,
                     'code' => 0,
@@ -125,6 +125,26 @@ class UserController extends AbstractController
             ]);
         } catch (\Throwable $exception) {
             return $this->response->error($exception->getCode(), $exception->getMessage());
+        }
+    }
+
+    /**
+     * @RequestMapping(path="getApplication",methods="POST")
+     * @Middleware(JwtAuthMiddleware::class)
+     */
+    public function getApplication()
+    {
+        try {
+            /**
+             * @var \App\Model\User $user
+             */
+            $user   = $this->request->getAttribute('user');
+            $page   = $this->request->input('page');
+            $size   = $this->request->input('size');
+            $result = UserService::getApplication($user->id, (int)$page, (int)$size);
+            return $this->response->success($result);
+        } catch (\Throwable $throwable) {
+            return $this->response->error($throwable->getCode(), $throwable->getMessage());
         }
     }
 
