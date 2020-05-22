@@ -46,7 +46,7 @@ class Server
         /**
          * @var \Swoole\WebSocket\Server $server
          */
-        $server = ApplicationContext::getContainer()->get(Server::class);
+        $server = ApplicationContext::getContainer()->get(\Swoole\Server::class);
         // If it's invalid fd
         if (!$server->isEstablished($fd)) {
             return false;

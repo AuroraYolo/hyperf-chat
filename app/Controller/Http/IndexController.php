@@ -119,4 +119,11 @@ class IndexController extends AbstractController
     {
         return $this->view->render('friend/room');
     }
+    /**
+     * @RequestMapping(path="findGroup",methods="GET")
+     */
+    public function findGroup()
+    {
+        return $this->view->render('group/find');
+    }
 }

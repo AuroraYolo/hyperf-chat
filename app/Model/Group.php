@@ -5,19 +5,22 @@ namespace App\Model;
 
 use Hyperf\DbConnection\Model\Model;
 /**
- * @property int $id 
- * @property int $uid 
- * @property string $group_name 
- * @property string $avatar 
- * @property int $size 
- * @property string $introduction 
- * @property int $validation 
- * @property string $deleted_at 
- * @property \Carbon\Carbon $created_at 
- * @property \Carbon\Carbon $updated_at 
+ * @property int $id
+ * @property int $uid
+ * @property string $group_name
+ * @property string $avatar
+ * @property int $size
+ * @property string $introduction
+ * @property int $validation
+ * @property string $deleted_at
+ * @property \Carbon\Carbon $created_at
+ * @property \Carbon\Carbon $updated_at
  */
 class Group extends Model
 {
+    const VALIDATION_NOT = 0;
+    const VALIDATION_NEED = 1;
+
     /**
      * The table associated with the model.
      *

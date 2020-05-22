@@ -59,7 +59,7 @@
     }
   </style>
 </head>
-<?= $this->include('chat/header', ['title' => '查找群']) ?>
+<@include('chat/header', ['title' => '查找群'])
 <body>
 <div class="layui-form">
   <div class="layui-container" style="padding:0">
@@ -74,6 +74,7 @@
     </div>
     <div id="LAY_view"></div>
     <textarea title="消息模版" id="LAY_tpl" style="display:none;">
+        @verbatim
 			<fieldset class="layui-elem-field layui-field-title">
 			  <legend>{{ d.legend}}</legend>
 			</fieldset>
@@ -81,15 +82,16 @@
 					{{#  layui.each(d.data, function(index, item){ }}
 					<div class="layui-col-xs3 layui-find-list">
 						<li layim-event="add" data-index="0"
-                data-gid="{{ item.groupId }}" data-name="{{item.groupName}}">
+                data-gid="{{ item.id }}" data-name="{{item.group_name}}">
 							<img src="{{item.avatar}}">
-							<span>{{item.groupName}}({{item.groupId}})</span>
+							<span>{{item.group_name}}({{item.id}})</span>
 							<p>{{item.introduction}}  {{#  if(item.introduction == ''){ }}无{{#  } }} </p>
 							<button class="layui-btn layui-btn-mini btncolor add" data-type="group"><i class="layui-icon">&#xe654;</i>加群</button>
 						</li>
 					</div>
 					{{#  }); }}
 			</div>
+        @endverbatim
         </textarea>
     <div class="lay_page" id="LAY_page"></div>
 

@@ -14,16 +14,16 @@ namespace App\Listener;
 
 use App\Constants\Atomic;
 use Hyperf\Event\Contract\ListenerInterface;
-use Hyperf\Framework\Event\AfterWorkerStart;
+use Hyperf\Framework\Event\BeforeMainServerStart;
 use Hyperf\Memory\AtomicManager;
 use Hyperf\Memory\TableManager;
 
-class WorkerStartListener implements ListenerInterface
+class BeforeMainServerStartListener implements ListenerInterface
 {
     public function listen() : array
     {
         return [
-            AfterWorkerStart::class
+            BeforeMainServerStart::class
         ];
     }
 

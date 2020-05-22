@@ -34,7 +34,8 @@
         "duncan3dc/blade": "^4.8",
         "hyperf/task": "^1.1",
         "phper666/jwt-auth": "^3.0",
-        "hyperf/websocket-server": "^1.1"
+        "hyperf/websocket-server": "^1.1",
+        "hyperf/filesystem": "^1.1"
     },
     "require-dev": {
         "swoft/swoole-ide-helper": "^4.2",

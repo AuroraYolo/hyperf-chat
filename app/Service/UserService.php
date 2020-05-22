@@ -182,6 +182,7 @@ class UserService
     {
         $userApplicationInfo = self::findUserApplicationById($userApplicationId);
         self::checkApplicationProcessed($userApplicationInfo);
+        dump($userApplicationInfo->application_type,$userApplicationType);
         if ($userApplicationInfo->application_type !== $userApplicationType) {
             throw new ApiException(ErrorCode::USER_APPLICATION_TYPE_WRONG);
         }
