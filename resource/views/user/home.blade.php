@@ -114,7 +114,7 @@ EOF;
         <span style="font-size:16px;">© </span>2020 ICP证：<a class="record" href="http://www.miitbeian.gov.cn/"
                                                             target="_block">蜀ICP备17028932号</a>
         <span id="onlineNumber"></span>
-        <script type="text/javascript">document.write(unescape("%3Cspan id='cnzz_stat_icon_1278808980'%3E%3C/span%3E%3Cscript src='https://s9.cnzz.com/z_stat.php%3Fid%3D1278808980%26online%3D1%26show%3Dline' type='text/javascript'%3E%3C/script%3E"));</script>
+        <script type="text/javascript">document.write(unescape("%3Cspan id='cnzz_stat_icon_1278928637'%3E%3C/span%3E%3Cscript src='https://v1.cnzz.com/z_stat.php%3Fid%3D1278928637' type='text/javascript'%3E%3C/script%3E"));</script>
     </div>
 </div>
 <input type="hidden" class="wsUrl" value="{{$wsUrl}} ">

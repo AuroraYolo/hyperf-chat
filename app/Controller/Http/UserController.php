@@ -14,7 +14,6 @@ namespace App\Controller\Http;
 
 use App\Controller\AbstractController;
 use App\Exception\InputException;
-use App\Model\User;
 use App\Service\FriendService;
 use App\Service\UserService;
 use Hyperf\Di\Annotation\Inject;
