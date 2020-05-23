@@ -56,7 +56,7 @@ EOF;
                 <div class="layui-colla-item">
                     <h2 class="layui-colla-title">Github</h2>
                     <div class="layui-colla-content">
-                        <a href="https://github.com//hyperf-im" target="_blank">https://github.com//hyperf-im</a>
+                        <a href="https://github.com//hyperf-im" target="_blank">https://github.com/inocturne/hyperf-chat/</a>
                     </div>
                 </div>
             </div>
@@ -86,10 +86,10 @@ EOF;
             <div class="layui-row layui-col-space15">
                 <div class="layui-col-md6">
                     <div class="layui-card">
-                        <div class="layui-card-header">公众号</div>
+                        <div class="layui-card-header">个人微信</div>
                         <div class="layui-card-body">
                             <p align="center">
-                                <img src="https://qiniu..com/2020/04/13/1aba16c932df2.jpg" alt="">
+                                <img src="" alt="">
                             </p>
                         </div>
                     </div>
@@ -99,7 +99,7 @@ EOF;
                         <div class="layui-card-header">小程序</div>
                         <div class="layui-card-body">
                             <p align="center">
-                                <img src="https://qiniu..com/2020/04/13/0a23783b1ec47.jpg" alt="">
+                                <img src="" alt="">
                             </p>
                         </div>
                     </div>
