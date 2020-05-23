@@ -445,5 +445,15 @@ class FriendService
         }
         return $userApplicationInfo;
     }
+
+    /**
+     * @param int $uid
+     *
+     * @return array
+     */
+    public static function getFriendIdsByUserId(int $uid)
+    {
+        return FriendRelation::query()->where(['uid' => $uid])->whereNull('deleted_at')->get()->toArray();
+    }
 }
 

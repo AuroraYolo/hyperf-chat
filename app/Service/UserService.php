@@ -13,6 +13,7 @@ declare(strict_types = 1);
 namespace App\Service;
 
 use App\Constants\ErrorCode;
+use App\Constants\MemoryTable;
 use App\Exception\ApiException;
 use App\Model\FriendRelation;
 use App\Model\User;
@@ -133,12 +134,12 @@ class UserService
         self::changeUserInfoById($userId, [
             'status' => $status
         ]);
-        $friendIds = FriendService::getFriendGroupByUserId($userId);
+        $friendIds = FriendService::getFriendIdsByUserId($userId);
         $friendIds = array_column($friendIds, 'friend_id');
 
         $onlineFds = [];
         foreach ($friendIds as $friendId) {
-            $fd = TableManager::get(MemoryTable::USER_TO_FD)->get($friendId, 'fd');
+            $fd = TableManager::get(MemoryTable::USER_TO_FD)->get((string)$friendId, 'fd');
             $fd && array_push($onlineFds, $fd);
         }
 
@@ -182,7 +183,7 @@ class UserService
     {
         $userApplicationInfo = self::findUserApplicationById($userApplicationId);
         self::checkApplicationProcessed($userApplicationInfo);
-        dump($userApplicationInfo->application_type,$userApplicationType);
+        dump($userApplicationInfo->application_type, $userApplicationType);
         if ($userApplicationInfo->application_type !== $userApplicationType) {
             throw new ApiException(ErrorCode::USER_APPLICATION_TYPE_WRONG);
         }
@@ -319,4 +320,47 @@ class UserService
                               ]);
     }
 
+    /**
+     * @param int    $uid
+     * @param string $username
+     * @param string $avatar
+     *
+     * @return int
+     */
+    public static function changeUserNameAndAvatar(int $uid, string $username, string $avatar)
+    {
+        return self::changeUserInfoById($uid, [
+            'username' => $username,
+            'avatar'   => $avatar
+        ]);
+    }
+
+    /**
+     * @param int    $uid
+     * @param string $sign
+     *
+     * @return int
+     */
+    public static function setSign(int $uid, string $sign)
+    {
+        return self::changeUserInfoById($uid, [
+            'sign' => $sign
+        ]);
+    }
+
+    /**
+     * @param \App\Model\User $userInfo
+     *
+     * @return array
+     */
+    public static function getMine(User $userInfo)
+    {
+        return [
+            'username' => $userInfo->username,
+            'id'       => $userInfo->id,
+            'status'   => User::STATUS_TEXT[User::STATUS_ONLINE],
+            'sign'     => $userInfo->sign,
+            'avatar'   => $userInfo->avatar,
+        ];
+    }
 }

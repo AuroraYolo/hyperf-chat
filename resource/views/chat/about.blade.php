@@ -15,14 +15,7 @@
   <li class="layui-timeline-item">
     <i class="layui-icon layui-timeline-axis"></i>
     <div class="layui-timeline-content layui-text">
-      <div class="layui-timeline-title">2020-04-18 v1.1.0</div>
-      <p>点对点视频聊天（WebRtc+Websocket）</p>
-    </div>
-  </li>
-  <li class="layui-timeline-item">
-    <i class="layui-icon layui-timeline-axis"></i>
-    <div class="layui-timeline-content layui-text">
-      <div class="layui-timeline-title">2020-04-13 v1.0.0</div>
+      <div class="layui-timeline-title">2020-05-22 v1.0.0</div>
       <p> 登录注册（Http）</p>
       <p> 单点登录（Websocket）</p>
       <p> 私聊（Websocket）</p>
@@ -39,9 +32,9 @@
     </div>
   </li>
   <li class="layui-timeline-item">
-    <i class="layui-icon layui-anim layui-anim-rotate layui-anim-loop layui-timeline-axis"></i>
+    <i class="layui-icon layui-timeline-axis"></i>
     <div class="layui-timeline-content layui-text">
-      <div class="layui-timeline-title">2020-03-30 哈哈哈 不知道怎么想的 要写这个</div>
+      <div class="layui-timeline-title">感谢sl-im作者提供的项目</div>
     </div>
   </li>
 </ul>
