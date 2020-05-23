@@ -131,13 +131,14 @@
     }
   </style>
 </head>
-<?= $this->include('chat/header', ['title' => '个人资料']) ?>
+@include('chat/header', ['title' => '个人资料'])
 <body>
 <div class="layui-form" id="LAY_view">
 
 </div>
-
+@verbatim
 <script type="text/html" title="资料模版" id="LAY_tpl" style="display:none;">
+
   <form class="layui-form" action="" style="margin-top: 15px;">
     <div class="layui-form-item layui-col-xs11">
       <label class="layui-form-label">用户昵称</label>
@@ -156,7 +157,7 @@
     <div class="layui-form-item layui-col-xs11">
       <label class="layui-form-label">注册时间</label>
       <p class="layim-msgbox-user" style="line-height: 28px">
-        {{d.createdAt}}
+        {{d.created_at}}
       </p>
     </div>
     <div class="layui-form-item" style="padding-top: 30px;">
@@ -165,7 +166,9 @@
       </div>
     </div>
   </form>
+
 </script>
+@endverbatim
 </body>
 <script type="module">
   import {user_info, user_change_name_avatar} from '/chat/js/api.js';

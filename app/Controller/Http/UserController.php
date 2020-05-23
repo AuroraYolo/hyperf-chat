@@ -187,7 +187,7 @@ class UserController extends AbstractController
     }
 
     /**
-     * @RequestMapping(path="userInfo",methods="GET")
+     * @RequestMapping(path="info",methods="GET")
      * @Middleware(JwtAuthMiddleware::class)
      */
     public function userInfo()
