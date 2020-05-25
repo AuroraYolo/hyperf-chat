@@ -89,17 +89,17 @@ EOF;
                         <div class="layui-card-header">个人微信</div>
                         <div class="layui-card-body">
                             <p align="center">
-                                <img src="" alt="">
+                                <img src="https://static.jayjay.cn/WechatIMG41.jpeg" alt="">
                             </p>
                         </div>
                     </div>
                 </div>
                 <div class="layui-col-md6">
                     <div class="layui-card">
-                        <div class="layui-card-header">小程序</div>
+                        <div class="layui-card-header">博客地址</div>
                         <div class="layui-card-body">
                             <p align="center">
-                                <img src="" alt="">
+                                <img src="https://static.jayjay.cn/blog.png" alt="">
                             </p>
                         </div>
                     </div>
