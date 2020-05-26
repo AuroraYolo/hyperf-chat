@@ -1,6 +1,6 @@
 <?php
 
-declare(strict_types=1);
+declare(strict_types = 1);
 /**
  * This file is part of Hyperf.
  *
@@ -15,6 +15,7 @@ namespace App\Exception\Handler;
 use Hyperf\Contract\StdoutLoggerInterface;
 use Hyperf\ExceptionHandler\ExceptionHandler;
 use Hyperf\HttpMessage\Stream\SwooleStream;
+use Hyperf\Utils\Codec\Json;
 use Psr\Http\Message\ResponseInterface;
 use Throwable;
 
@@ -34,10 +35,18 @@ class AppExceptionHandler extends ExceptionHandler
     {
         $this->logger->error(sprintf('%s[%s] in %s', $throwable->getMessage(), $throwable->getLine(), $throwable->getFile()));
         $this->logger->error($throwable->getTraceAsString());
-        return $response->withHeader("Server", "Hyperf")->withStatus(500)->withBody(new SwooleStream('Internal Server Error.'));
+        $data = Json::encode([
+            'code' => -1,
+            'msg'  => '服务端异常!',
+            'data' => NULL
+        ], JSON_UNESCAPED_UNICODE);
+        $this->stopPropagation();
+        return $response->withStatus(200)
+                        ->withAddedHeader('content-type', 'application/json; charset=utf-8')
+                        ->withBody(new SwooleStream($data));
     }
 
-    public function isValid(Throwable $throwable): bool
+    public function isValid(Throwable $throwable) : bool
     {
         return true;
     }
