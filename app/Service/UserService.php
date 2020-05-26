@@ -261,8 +261,6 @@ class UserService
 
             ($application['application_type'] == UserApplication::APPLICATION_TYPE_GROUP) && array_push($groupIds, $application['group_id']);
 
-            ($application['application_type'] == UserApplication::APPLICATION_TYPE_GROUP) && array_push($groupIds, $application['groupId']);
-
             $result[] = [
                 'user_application_id'     => $application['id'],
                 'user_id'                 => $application['uid'],
