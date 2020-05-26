@@ -12,3 +12,4 @@ vendor/
 *.lock
 .phpunit*
 ./public/storage
+./app/Controller/Http/TestController.php
