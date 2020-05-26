@@ -14,7 +14,7 @@ declare(strict_types = 1);
 use App\Middleware\AuthMiddleware;
 use Hyperf\HttpServer\Router\Router;
 
-Router::addRoute(['GET', 'POST', 'HEAD'], '/', 'App\Controller\IndexController@index');
+Router::addRoute(['GET', 'POST', 'HEAD'], '/', 'App\Controller\Http\IndexController@login');
 Router::addServer('ws', function ()
 {
     Router::get('/ws', 'App\Controller\Ws\WebSocketController', [
