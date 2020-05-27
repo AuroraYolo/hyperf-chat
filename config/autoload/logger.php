@@ -28,4 +28,38 @@ return [
             ],
         ],
     ],
+    'sql'     => [
+        'handler'   => [
+            'class'       => Monolog\Handler\RotatingFileHandler::class,
+            'constructor' => [
+                'filename' => BASE_PATH . '/runtime/logs/sql/sql.log',
+                'level' => Monolog\Logger::DEBUG,
+            ],
+        ],
+        'formatter' => [
+            'class'       => Monolog\Formatter\LineFormatter::class,
+            'constructor' => [
+                'format'                => NULL,
+                'dateFormat'            => NULL,
+                'allowInlineLineBreaks' => true,
+            ],
+        ],
+    ],
+    'runtime' => [
+        'handler'   => [
+            'class'       => Monolog\Handler\RotatingFileHandler::class,
+            'constructor' => [
+                'filename' => BASE_PATH . '/runtime/logs/runtime/runtime.log',
+                'level' => Monolog\Logger::DEBUG,
+            ],
+        ],
+        'formatter' => [
+            'class'       => Monolog\Formatter\LineFormatter::class,
+            'constructor' => [
+                'format'                => NULL,
+                'dateFormat'            => NULL,
+                'allowInlineLineBreaks' => true,
+            ],
+        ],
+    ],
 ];

@@ -12,6 +12,7 @@ declare(strict_types = 1);
 
 namespace App\Listener;
 
+use App\Component\Log\RuntimeLog;
 use App\Constants\Atomic;
 use Hyperf\Event\Contract\ListenerInterface;
 use Hyperf\Framework\Event\BeforeMainServerStart;
@@ -32,6 +33,7 @@ class BeforeMainServerStartListener implements ListenerInterface
         $tableConfig = config('table');
         foreach ($tableConfig as $key => $item) {
             TableManager::initialize($key, $item['size']);
+            RuntimeLog::debug(sprintf('TableManager [%s] initialize...', $key));
             foreach ($item['columns'] as $columnKey => $column) {
                 TableManager::get($key)->column($columnKey, $column['type'], $column['size']);
             }

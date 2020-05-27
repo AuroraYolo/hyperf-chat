@@ -12,6 +12,7 @@ declare(strict_types = 1);
 
 namespace App\Exception\Handler;
 
+use App\Component\Log\RuntimeLog;
 use Hyperf\Contract\StdoutLoggerInterface;
 use Hyperf\ExceptionHandler\ExceptionHandler;
 use Hyperf\HttpMessage\Stream\SwooleStream;
@@ -33,8 +34,8 @@ class AppExceptionHandler extends ExceptionHandler
 
     public function handle(Throwable $throwable, ResponseInterface $response)
     {
-        $this->logger->error(sprintf('%s[%s] in %s', $throwable->getMessage(), $throwable->getLine(), $throwable->getFile()));
-        $this->logger->error($throwable->getTraceAsString());
+        RuntimeLog::error(sprintf('%s[%s] in %s', $throwable->getMessage(), $throwable->getLine(), $throwable->getFile()));
+        RuntimeLog::error($throwable->getTraceAsString());
         $data = Json::encode([
             'code' => -1,
             'msg'  => '服务端异常!',
