@@ -169,7 +169,7 @@ class UserController extends AbstractController
      */
     public function signOut()
     {
-        return $this->response->withCookie(new Cookie('IM_TOKEN', ''))->redirect('index/login');
+        return $this->response->withCookie(new Cookie('IM_TOKEN', ''))->redirect(env('APP_URL').'/index/login');
     }
 
     /**
