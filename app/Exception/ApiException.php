@@ -21,7 +21,7 @@ class ApiException extends ServerException
     public function __construct(int $code = 0, string $message = NULL, Throwable $previous = NULL)
     {
         if (is_null($message)) {
-            $message = ErrorCode::$errorMessages[$code] ?? '';
+            $message = ErrorCode::getMessage($code) ?? '';
         }
 
         parent::__construct($message, $code, $previous);

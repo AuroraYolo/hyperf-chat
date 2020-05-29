@@ -105,6 +105,7 @@ class WebSocketController extends AbstractController implements OnMessageInterfa
         $atomic = AtomicManager::get(Atomic::NAME);
         $atomic->sub(1);
 
+        WsContext::destroy('user');
         $this->container->get(UserTask::class)->onlineNumber();
     }
 

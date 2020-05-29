@@ -12,6 +12,8 @@ declare(strict_types = 1);
 
 namespace App\Middleware;
 
+use App\Constants\ErrorCode;
+use App\Exception\WsHandshakeException;
 use App\Model\User;
 use Hyperf\HttpMessage\Server\Request as Psr7Request;
 use Hyperf\HttpMessage\Server\Response;
@@ -77,6 +79,9 @@ class AuthMiddleware implements MiddlewareInterface
         if ($isValidToken) {
             $jwtData = $this->jwt->getParserData($token);
             $user    = User::query()->where(['id' => $jwtData['uid']])->first();
+            if(empty($user)){
+                throw new WsHandshakeException(ErrorCode::USER_NOT_FOUND);
+            }
             WsContext::set('user', $user);
             $uri        = $request->getUri();
             $dispatcher = $container
