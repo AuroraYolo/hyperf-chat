@@ -72,24 +72,21 @@ class UserController extends AbstractController
      */
     public function register()
     {
-        try {
-            $email    = $this->request->input('email');
-            $password = $this->request->input('password');
-            $params   = $this->request->all();
-            //------参数校验-----------//
-            $validator = $this->validationFactory->make($params, [
-                'email'    => 'required|email|max:50',
-                'password' => 'required|string|max:50',
-            ]);
-            if ($validator->fails()) {
-                $errorMessage = array_values($validator->errors()->all());
 
-                throw new InputException(implode(',', $errorMessage));
-            }
-            return $this->response->success(UserService::register($email, $password));
-        } catch (\Throwable $throwable) {
-            return $this->response->error($throwable->getCode(), $throwable->getMessage());
+        $email    = $this->request->input('email');
+        $password = $this->request->input('password');
+        $params   = $this->request->all();
+        //------参数校验-----------//
+        $validator = $this->validationFactory->make($params, [
+            'email'    => 'required|email|max:50',
+            'password' => 'required|string|max:50',
+        ]);
+        if ($validator->fails()) {
+            $errorMessage = array_values($validator->errors()->all());
+
+            throw new InputException(implode(',', $errorMessage));
         }
+        return $this->response->success(UserService::register($email, $password));
     }
 
     /**
@@ -99,25 +96,22 @@ class UserController extends AbstractController
      */
     public function login()
     {
-        try {
-            $email    = $this->request->input('email');
-            $password = $this->request->input('password');
-            $user     = UserService::login($email, $password);
-            $auth     = [
-                'uid'      => $user->id,
-                'username' => $user->email
-            ];
-            $token    = $this->auth->setScene('default')->getToken($auth);
-            return $this->response
-                ->withCookie(new Cookie('IM_TOKEN', $token, time() + $this->auth->getTTL(), '/', '', false, false,)
-                )->json([
-                    'data' => $user,
-                    'code' => 0,
-                    'msg'  => '登录成功',
-                ]);
-        } catch (\Throwable $throwable) {
-            return $this->response->error($throwable->getCode(), $throwable->getMessage());
-        }
+
+        $email    = $this->request->input('email');
+        $password = $this->request->input('password');
+        $user     = UserService::login($email, $password);
+        $auth     = [
+            'uid'      => $user->id,
+            'username' => $user->email
+        ];
+        $token    = $this->auth->setScene('default')->getToken($auth);
+        return $this->response
+            ->withCookie(new Cookie('IM_TOKEN', $token, time() + $this->auth->getTTL(), '/', '', false, false,)
+            )->json([
+                'data' => $user,
+                'code' => 0,
+                'msg'  => '登录成功',
+            ]);
     }
 
     /**
@@ -127,21 +121,18 @@ class UserController extends AbstractController
      */
     public function userInit()
     {
-        try {
-            /**
-             * @var \App\Model\User $user
-             */
-            $user         = $this->request->getAttribute('user');
-            $friend       = FriendService::getFriend($user->id);
-            $group        = FriendService::getGroup($user->id);
-            return $this->response->success([
-                'mine'   => UserService::getMine($user),
-                'friend' => $friend,
-                'group'  => $group
-            ]);
-        } catch (\Throwable $exception) {
-            return $this->response->error($exception->getCode(), $exception->getMessage());
-        }
+
+        /**
+         * @var \App\Model\User $user
+         */
+        $user   = $this->request->getAttribute('user');
+        $friend = FriendService::getFriend($user->id);
+        $group  = FriendService::getGroup($user->id);
+        return $this->response->success([
+            'mine'   => UserService::getMine($user),
+            'friend' => $friend,
+            'group'  => $group
+        ]);
     }
 
     /**
@@ -150,18 +141,15 @@ class UserController extends AbstractController
      */
     public function getApplication()
     {
-        try {
-            /**
-             * @var \App\Model\User $user
-             */
-            $user   = $this->request->getAttribute('user');
-            $page   = $this->request->input('page');
-            $size   = $this->request->input('size');
-            $result = UserService::getApplication($user->id, (int)$page, (int)$size);
-            return $this->response->success($result);
-        } catch (\Throwable $throwable) {
-            return $this->response->error($throwable->getCode(), $throwable->getMessage());
-        }
+
+        /**
+         * @var \App\Model\User $user
+         */
+        $user   = $this->request->getAttribute('user');
+        $page   = $this->request->input('page');
+        $size   = $this->request->input('size');
+        $result = UserService::getApplication($user->id, (int)$page, (int)$size);
+        return $this->response->success($result);
     }
 
     /**
@@ -169,7 +157,7 @@ class UserController extends AbstractController
      */
     public function signOut()
     {
-        return $this->response->withCookie(new Cookie('IM_TOKEN', ''))->redirect(env('APP_URL').'/index/login');
+        return $this->response->withCookie(new Cookie('IM_TOKEN', ''))->redirect(env('APP_URL') . '/index/login');
     }
 
     /**
@@ -178,12 +166,9 @@ class UserController extends AbstractController
      */
     public function getUnreadApplicationCount()
     {
-        try {
-            $user = $this->request->getAttribute('user');
-            return $this->response->success(UserService::getUnreadApplicationCount($user->id));
-        } catch (\Throwable $throwable) {
-            return $this->response->error($throwable->getCode(), $throwable->getMessage());
-        }
+
+        $user = $this->request->getAttribute('user');
+        return $this->response->success(UserService::getUnreadApplicationCount($user->id));
     }
 
     /**
@@ -192,11 +177,7 @@ class UserController extends AbstractController
      */
     public function userInfo()
     {
-        try {
-            return $this->response->success($this->request->getAttribute('user'));
-        } catch (\Throwable $throwable) {
-            return $this->response->error($throwable->getCode(), $throwable->getMessage());
-        }
+        return $this->response->success($this->request->getAttribute('user'));
     }
 
     /**
@@ -205,14 +186,11 @@ class UserController extends AbstractController
      */
     public function changeUserNameAndAvatar()
     {
-        try {
-            $user     = $this->request->getAttribute('user');
-            $username = $this->request->input('username');
-            $avatar   = $this->request->input('avatar');
-            return $this->response->success(UserService::changeUserNameAndAvatar($user->id, $username, $avatar));
-        } catch (\Throwable $throwable) {
-            return $this->response->error($throwable->getCode(), $throwable->getMessage());
-        }
+
+        $user     = $this->request->getAttribute('user');
+        $username = $this->request->input('username');
+        $avatar   = $this->request->input('avatar');
+        return $this->response->success(UserService::changeUserNameAndAvatar($user->id, $username, $avatar));
     }
 
     /**
@@ -221,13 +199,10 @@ class UserController extends AbstractController
      */
     public function setSign()
     {
-        try {
-            $user = $this->request->getAttribute('user');
-            $sign = $this->request->input('sign');
-            return $this->response->success(UserService::setSign($user->id, $sign));
-        } catch (\Throwable $throwable) {
-            return $this->response->error($throwable->getCode(), $throwable->getMessage());
-        }
+
+        $user = $this->request->getAttribute('user');
+        $sign = $this->request->input('sign');
+        return $this->response->success(UserService::setSign($user->id, $sign));
     }
 
     /**
@@ -236,13 +211,10 @@ class UserController extends AbstractController
      */
     public function setStatus()
     {
-        try {
-            $user   = $this->request->getAttribute('user');
-            $status = $this->request->input('status');
-            return $this->response->success(UserService::setUserStatus($user->id, (int)$status));
-        } catch (\Throwable $throwable) {
-            return $this->response->error($throwable->getCode(), $throwable->getMessage());
-        }
+
+        $user   = $this->request->getAttribute('user');
+        $status = $this->request->input('status');
+        return $this->response->success(UserService::setUserStatus($user->id, (int)$status));
     }
 
 }

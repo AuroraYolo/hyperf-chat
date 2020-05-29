@@ -34,11 +34,7 @@ class FriendController extends AbstractController
      */
     public function getRecommendedFriend()
     {
-        try {
-            return $this->response->success(FriendService::getRecommendedFriend(20));
-        } catch (\Throwable $exception) {
-            return $this->response->error($exception->getCode(), $exception->getMessage());
-        }
+        return $this->response->success(FriendService::getRecommendedFriend(20));
     }
 
     /**
@@ -48,20 +44,16 @@ class FriendController extends AbstractController
      */
     public function createFriendGroup()
     {
-        try {
-            /**
-             * @var \App\Model\User $user
-             */
-            $user            = $this->request->getAttribute('user');
-            $friendGroupName = $this->request->input('friend_group_name');
-            $result          = FriendService::createFriendGroup($user->id, $friendGroupName);
-            return $this->response->success([
-                'id'        => $result->id,
-                'groupname' => $result->friend_group_name
-            ]);
-        } catch (\Throwable $exception) {
-            return $this->response->error($exception->getCode(), $exception->getMessage());
-        }
+        /**
+         * @var \App\Model\User $user
+         */
+        $user            = $this->request->getAttribute('user');
+        $friendGroupName = $this->request->input('friend_group_name');
+        $result          = FriendService::createFriendGroup($user->id, $friendGroupName);
+        return $this->response->success([
+            'id'        => $result->id,
+            'groupname' => $result->friend_group_name
+        ]);
     }
 
     /**
@@ -71,14 +63,10 @@ class FriendController extends AbstractController
      */
     public function searchFriend()
     {
-        try {
-            $keyword = $this->request->input('keyword');
-            $page    = $this->request->input('page');
-            $size    = $this->request->input('size');
-            return $this->response->success(FriendService::searchFriend($keyword, (int)$page, (int)$size));
-        } catch (\Throwable $exception) {
-            return $this->response->error($exception->getCode(), $exception->getMessage());
-        }
+        $keyword = $this->request->input('keyword');
+        $page    = $this->request->input('page');
+        $size    = $this->request->input('size');
+        return $this->response->success(FriendService::searchFriend($keyword, (int)$page, (int)$size));
     }
 
     /**
@@ -87,15 +75,11 @@ class FriendController extends AbstractController
      */
     public function apply()
     {
-        try {
-            $user              = $this->request->getAttribute('user');
-            $receiverId        = $this->request->input('receiver_id');
-            $friendGroupId     = $this->request->input('friend_group_id');
-            $applicationReason = $this->request->input('application_reason');
-            return $this->response->success(FriendService::apply($user->id, (int)$receiverId, (int)$friendGroupId, (string)$applicationReason));
-        } catch (\Throwable $exception) {
-            return $this->response->error($exception->getCode(), $exception->getMessage());
-        }
+        $user              = $this->request->getAttribute('user');
+        $receiverId        = $this->request->input('receiver_id');
+        $friendGroupId     = $this->request->input('friend_group_id');
+        $applicationReason = $this->request->input('application_reason');
+        return $this->response->success(FriendService::apply($user->id, (int)$receiverId, (int)$friendGroupId, (string)$applicationReason));
     }
 
     /**
@@ -123,15 +107,12 @@ class FriendController extends AbstractController
      */
     public function getChatHistory()
     {
-        try {
-            $user       = $this->request->getAttribute('user');
-            $fromUserId = $this->request->input('from_user_id');
-            $page       = $this->request->input('page');
-            $size       = $this->request->input('size');
-            return $this->response->success(FriendService::getChatHistory((int)$fromUserId, $user->id, (int)$page, (int)$size));
-        } catch (\Throwable $throwable) {
-            return $this->response->error($throwable->getCode(), $throwable->getMessage());
-        }
+
+        $user       = $this->request->getAttribute('user');
+        $fromUserId = $this->request->input('from_user_id');
+        $page       = $this->request->input('page');
+        $size       = $this->request->input('size');
+        return $this->response->success(FriendService::getChatHistory((int)$fromUserId, $user->id, (int)$page, (int)$size));
     }
 
     /**
@@ -140,13 +121,10 @@ class FriendController extends AbstractController
      */
     public function friendInfo()
     {
-        try {
-            $userId   = $this->request->input('user_id');
-            $userInfo = UserService::findUserInfoById((int)$userId);
-            return $this->response->success($userInfo);
-        } catch (\Throwable $throwable) {
-            return $this->response->error($throwable->getCode(), $throwable->getMessage());
-        }
+
+        $userId   = $this->request->input('user_id');
+        $userInfo = UserService::findUserInfoById((int)$userId);
+        return $this->response->success($userInfo);
     }
 
     /**
@@ -155,12 +133,9 @@ class FriendController extends AbstractController
      */
     public function refuseApply()
     {
-        try {
-            $userApplicationId = $this->request->input('user_application_id');
-            FriendService::refuseApply((int)$userApplicationId);
-            return $this->response->success($userApplicationId);
-        } catch (\Throwable $throwable) {
-            return $this->response->error($throwable->getCode(), $throwable->getMessage());
-        }
+
+        $userApplicationId = $this->request->input('user_application_id');
+        FriendService::refuseApply((int)$userApplicationId);
+        return $this->response->success($userApplicationId);
     }
 }
