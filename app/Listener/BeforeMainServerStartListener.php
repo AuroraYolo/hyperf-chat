@@ -40,5 +40,6 @@ class BeforeMainServerStartListener implements ListenerInterface
             TableManager::get($key)->create();
         }
         AtomicManager::initialize(Atomic::NAME);
+        RuntimeLog::debug(sprintf('AtomicManager [%s] initialize...', Atomic::NAME));
     }
 }
