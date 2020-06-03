@@ -27,7 +27,7 @@ use Psr\Http\Message\ServerRequestInterface;
 use Psr\Http\Server\MiddlewareInterface;
 use Psr\Http\Server\RequestHandlerInterface;
 
-class AuthMiddleware implements MiddlewareInterface
+class VideoAuthMiddleware implements MiddlewareInterface
 {
     private const HANDLE_SUCCESS_CODE = 101;
 
@@ -77,7 +77,7 @@ class AuthMiddleware implements MiddlewareInterface
         if ($isValidToken) {
             $jwtData = $this->jwt->getParserData($token);
             $user    = User::query()->where(['id' => $jwtData['uid']])->first();
-            if(empty($user)){
+            if (empty($user)) {
                 throw new WsHandshakeException(ErrorCode::USER_NOT_FOUND);
             }
             WsContext::set('user', $user);
