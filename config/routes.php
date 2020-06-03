@@ -15,7 +15,7 @@ use App\Middleware\AuthMiddleware;
 use App\Middleware\VideoAuthMiddleware;
 use Hyperf\HttpServer\Router\Router;
 
-Router::addRoute(['GET', 'POST', 'HEAD'], '/', 'App\Controller\Http\IndexController@login');
+Router::addRoute(['GET', 'POST', 'HEAD'], '/', 'App\Controller\Http\HomeController@index');
 Router::addServer('ws', function ()
 {
     Router::get('/ws', 'App\Controller\Ws\WebSocketController', [

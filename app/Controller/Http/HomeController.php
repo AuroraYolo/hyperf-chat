@@ -13,14 +13,19 @@ declare(strict_types = 1);
 namespace App\Controller\Http;
 
 use App\Controller\AbstractController;
-use Hyperf\HttpServer\Annotation\AutoController;
 use Hyperf\View\RenderInterface;
 
 /**
- * @AutoController
+ *
  */
 class HomeController extends AbstractController
 {
+    /**
+     * @param \Hyperf\View\RenderInterface $render
+     *
+     * @return \Psr\Http\Message\ResponseInterface
+     *
+     */
     public function index(RenderInterface $render)
     {
         return $render->render('/home/index');
