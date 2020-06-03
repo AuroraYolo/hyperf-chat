@@ -21,7 +21,7 @@
 [hyperf-im](https://im.jayjay.cn) https://im.jayjay.cn
 
 ## 功能
-
+1.0
 - 登录注册（Http）
 - 单点登录（Websocket）
 - 私聊（Websocket）
@@ -36,6 +36,9 @@
 - 消息重发
 - 断线重连
 - 发送图片及文件
+
+1.1
+- webrtc(视频聊天)
 
 ## Requirement
 
@@ -60,8 +63,10 @@ composer update
 
 ```bash
 WS_URL=wss://im.jayjay.cn/im
-STORAGE_IMG_URL=
-STORAGE_FILE_URL=
+STORAGE_IMG_URL=$host/storage/upload/
+STORAGE_FILE_URL=$host/file/upload/
+APP_URL=https://im.jayjay.cn
+WEB_RTC_URL=wss://im.jayjay.cn/video
 ```
 ### nginx配置
 
@@ -100,6 +105,15 @@ server{
         proxy_set_header Upgrade $http_upgrade;
         proxy_set_header Connection "upgrade";
     }
+     
+     location /video {
+             proxy_pass http://127.0.0.1:9502;
+             proxy_http_version 1.1;
+             proxy_read_timeout   3600s;
+             proxy_set_header Upgrade $http_upgrade;
+             proxy_set_header Connection "upgrade";
+     }
+
    
     location ~ .*\.(js|ico|css|ttf|woff|woff2|png|jpg|jpeg|svg|gif|htm)$ {
         root /data/wwwroot/IM/public;
@@ -119,7 +133,7 @@ php bin/hyperf.php start
 ## TODO
 
 1.完善整体项目
-2.加入webrtc(视频聊天)
+2.rabbitmq消息记录，看接下来是否上分布式
 
 
 ## 联系方式
