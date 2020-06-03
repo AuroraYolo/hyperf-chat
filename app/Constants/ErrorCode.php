@@ -17,7 +17,6 @@ use Hyperf\Constants\Annotation\Constants;
 
 /**
  * @Constants
- * @method  static getMessage(int $code)
  */
 class ErrorCode extends AbstractConstants
 {
@@ -99,4 +98,9 @@ class ErrorCode extends AbstractConstants
         self::CONFIG_NOT_FOUND      => 'Configuration not found !',
         self::FILE_DOES_NOT_EXIST   => 'File does not exist !'
     ];
+
+    public static function getMessage(int $code = 0)
+    {
+        return self::$errorMessages[$code] ?? '';
+    }
 }

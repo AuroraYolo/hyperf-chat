@@ -11,13 +11,15 @@ declare(strict_types = 1);
  */
 
 use App\Exception\Handler\AppExceptionHandler;
+use App\Exception\Handler\HttpExceptionHandler;
 use App\Exception\Handler\InputExceptionHandler;
 
 return [
     'handler' => [
         'http' => [
+            InputExceptionHandler::class,
+            HttpExceptionHandler::class,
             AppExceptionHandler::class,
-            InputExceptionHandler::class
         ],
     ],
 ];
