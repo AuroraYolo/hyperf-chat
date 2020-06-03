@@ -53,7 +53,7 @@ class UserController extends AbstractController
     public function home()
     {
         if (!$user = checkAuth()) {
-            return $this->response->redirect('index/login');
+            return $this->response->redirect(env('APP_URL').'/index/login');
         }
         $menus = config('menu');
         return $this->view->render('user/home', [
