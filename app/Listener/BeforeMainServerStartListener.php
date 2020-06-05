@@ -14,6 +14,8 @@ namespace App\Listener;
 
 use App\Component\Log\RuntimeLog;
 use App\Constants\Atomic;
+use App\Constants\Message;
+use Hyperf\Contract\StdoutLoggerInterface;
 use Hyperf\Event\Contract\ListenerInterface;
 use Hyperf\Framework\Event\BeforeMainServerStart;
 use Hyperf\Memory\AtomicManager;
@@ -21,6 +23,14 @@ use Hyperf\Memory\TableManager;
 
 class BeforeMainServerStartListener implements ListenerInterface
 {
+
+    private $logger;
+
+    public function __construct(StdoutLoggerInterface $logger)
+    {
+        $this->logger = $logger;
+    }
+
     public function listen() : array
     {
         return [
@@ -30,6 +40,10 @@ class BeforeMainServerStartListener implements ListenerInterface
 
     public function process(object $event)
     {
+        $this->logger->debug("Hyperf-im Starting................");
+        $this->logger->debug("\r\n");
+        $this->logger->debug(Message::TITLE);
+        $this->logger->debug("\r\n");
         $tableConfig = config('table');
         foreach ($tableConfig as $key => $item) {
             TableManager::initialize($key, $item['size']);
@@ -41,5 +55,6 @@ class BeforeMainServerStartListener implements ListenerInterface
         }
         AtomicManager::initialize(Atomic::NAME);
         RuntimeLog::debug(sprintf('AtomicManager [%s] initialize...', Atomic::NAME));
+        $this->logger->debug("Hyperf-im Success.................");
     }
 }
