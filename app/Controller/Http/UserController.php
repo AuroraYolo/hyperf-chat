@@ -106,7 +106,7 @@ class UserController extends AbstractController
         ];
         $token    = $this->auth->setScene('default')->getToken($auth);
         return $this->response
-            ->withCookie(new Cookie('IM_TOKEN', $token, time() + $this->auth->getTTL(), '/', '', false, false,)
+            ->withCookie(new Cookie('IM_TOKEN', $token, time() + $this->auth->getTTL(), '/', '', false, false)
             )->json([
                 'data' => $user,
                 'code' => 0,

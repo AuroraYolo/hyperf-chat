@@ -47,7 +47,7 @@ class GroupController extends AbstractController
         $check = GroupService::checkNotGroupRelation((int)$data['from_user_id'], (int)$data['to_id']);
 
         if (!$check) {
-            throw new ApiException(ErrorCode::GROUP_NOT_MEMBER, $data['message_id'],);
+            throw new ApiException(ErrorCode::GROUP_NOT_MEMBER, $data['message_id']);
         }
         $groupChatHistoryInfo = GroupService::createGroupChatHistory($data['message_id'], (int)$data['from_user_id'], (int)$data['to_id'], (string)$data['content']);
 
