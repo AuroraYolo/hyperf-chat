@@ -23,7 +23,7 @@ use Hyperf\HttpServer\Annotation\Middleware;
 use Hyperf\HttpServer\Annotation\RequestMapping;
 use App\Middleware\JwtAuthMiddleware;
 use function App\Helper\checkAuth;
-use Phper666\JwtAuth\Jwt;
+use Phper666\JWTAuth\JWT;
 /**
  * Class UserController
  * @package App\Controller
