@@ -104,9 +104,9 @@ class UserController extends AbstractController
             'uid'      => $user->id,
             'username' => $user->email
         ];
-        $token    = $this->auth->setScene('default')->getToken($auth);
+        $token    = $this->auth->getToken($auth);
         return $this->response
-            ->withCookie(new Cookie('IM_TOKEN', $token, time() + $this->auth->getTTL(), '/', '', false, false)
+            ->withCookie(new Cookie('IM_TOKEN', (string)$token, time() + $this->auth->getTTL(), '/', '', false, false)
             )->json([
                 'data' => $user,
                 'code' => 0,
