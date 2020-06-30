@@ -56,7 +56,7 @@ EOF;
                 <div class="layui-colla-item">
                     <h2 class="layui-colla-title">Github</h2>
                     <div class="layui-colla-content">
-                        <a href="https://github.com//hyperf-im" target="_blank">https://github.com/inocturne/hyperf-chat/</a>
+                        <a href="https://github.com//hyperf-im" target="_blank">https://github.com/komorebi-php/hyperf-chat/</a>
                     </div>
                 </div>
             </div>

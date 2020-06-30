@@ -254,7 +254,7 @@
 <div class="container">
   <nav class="top-nav ">
     <ul class="clearfix">
-      <li><a target="_blank"  href="https://github.com/inocturne/hyperf-chat/">Github</a></li>
+      <li><a target="_blank"  href="https://github.com/komorebi-php/hyperf-chat/">Github</a></li>
       <li><a target="_blank"  href="/index/register">Register</a></li>
       <li><a target="_blank"  href="/index/login">Login</a></li>
       <li><a target="_blank"  href="/user/home">聊天室</a></li>

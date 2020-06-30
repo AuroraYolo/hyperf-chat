@@ -1,15 +1,15 @@
 ## 感谢sl-im作者提供的demo,自己就是想写一套im,用hyperf重写.
 # [sl-im](https://github.com/gaobinzhan/sl-im) 
-# [hyperf-im](https://github.com/inocturne/hyperf-chat)
+# [hyperf-im](https://github.com/komorebi-php/hyperf-chat)
 <p align="center">
-    <a href="https://github.com/inocturne/hyperf-chat" target="_blank">
+    <a href="https://github.com/komorebi-php/hyperf-chat" target="_blank">
         <img src="https://static.jayjay.cn/1496800949298.jpg"/>
     </a>
 </p>
 
 [![Php Version](https://img.shields.io/badge/php-%3E=7.2-brightgreen.svg?maxAge=2592000)](https://secure.php.net/)
 [![Swoole Version](https://img.shields.io/badge/swoole-%3E=4.4.16-brightgreen.svg?maxAge=2592000)](https://github.com/swoole/swoole-src)
-[![sl-im License](https://img.shields.io/github/license/hyperf/hyperf.svg?maxAge=2592000)](https://github.com/inocturne/hyperf-chat/blob/master/LICENSE)
+[![sl-im License](https://img.shields.io/github/license/hyperf/hyperf.svg?maxAge=2592000)](https://github.com/komorebi-php/hyperf-chat/blob/master/LICENSE)
 
 
 ## 简介
