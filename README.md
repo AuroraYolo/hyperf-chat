@@ -140,6 +140,7 @@ php bin/hyperf.php start
 
 - WeChat：naicha_1994
 - QQ：847050412
+- QQ群:658446650
 
 ## License
 
