@@ -130,10 +130,14 @@ php bin/hyperf.php start
 ```
 
 
-## TODO
+## 打赏(你的支持是我最大的动力,下个版本重大升级中)
 
-1.完善整体项目
-2.rabbitmq消息记录，看接下来是否上分布式
+
+<p align="center">
+    <a href="https://github.com/codingheping/hyperf-chat" target="_blank">
+        <img src="https://static.jayjay.cn/pay.jpeg"/>
+    </a>
+</p>
 
 
 ## 联系方式
@@ -141,6 +145,9 @@ php bin/hyperf.php start
 - WeChat：naicha_1994
 - QQ：847050412
 - QQ群:658446650
+
+## hyperf-chat升级版欢迎star
+[hyperf-chat升级版](https://github.com/codingheping/hyperf-chat-upgrade)
 
 ## License
 
